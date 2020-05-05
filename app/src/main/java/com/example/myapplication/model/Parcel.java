@@ -53,6 +53,21 @@ public class Parcel {
         this._weight = _weight;
     }
 
+    public String get_parcelID() {
+        return _parcelID;
+    }
+
+    public void set_parcelID(String _parcelID) {
+        this._parcelID = _parcelID;
+    }
+
+    public String get_locationOfStorage() {
+        return _locationOfStorage;
+    }
+
+    public void set_locationOfStorage(String _locationOfStorage) {
+        this._locationOfStorage = _locationOfStorage;
+    }
 
 
     public String get_phone() {
