@@ -1,23 +1,32 @@
 package com.example.myapplication.model;
 
 public class Parcel {
+    public enum ParcelType {
+        ENVELOPE, SMALL_PARCEL, BIG_PARCEL
+    }
+    public enum WeightParcel {
+        UP_TO_500G, UP_TO_1KG, UP_TO_5KG, UP_TO_20KG
+    }
+
     private ParcelType _type;
     private boolean _fragile;
     private WeightParcel _weight;
-    private String _location;
     private String _phone;
     private Person _person;
+    private String _parcelID;
+    private String _locationOfStorage;
 
     //-------------------------------------------------------
     public Parcel() {}
 
-    public Parcel(ParcelType type, boolean fragile, WeightParcel weight, String location, Person person) {
+    public Parcel(ParcelType type, boolean fragile, WeightParcel weight, Person person, String parcelID,  String locationOfStorage) {
         this._type = type;
         this._fragile = fragile;
         this._weight = weight;
-        this._location = location;
         this._phone = person.get_phone();
         this._person = person;
+        this._parcelID=parcelID;
+        this._locationOfStorage=locationOfStorage;
     }
 //-------------------------------------------------------------------
     public ParcelType get_type() {
@@ -44,13 +53,7 @@ public class Parcel {
         this._weight = _weight;
     }
 
-    public String get_location() {
-        return _location;
-    }
 
-    public void set_location(String _location) {
-        this._location = _location;
-    }
 
     public String get_phone() {
         return _phone;
