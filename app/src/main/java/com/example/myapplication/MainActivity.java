@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
     CheckBox acheckBoxFrgile;
     Parcel.ParcelType type;
-    Parcel.WeightParcel weight;
+    Parcel.ParcelWeight weight;
     boolean isFragile;
     String address;
     int PERMISSION_ID = 44;
