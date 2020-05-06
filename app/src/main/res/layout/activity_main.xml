@@ -29,16 +29,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter phone"
-            android:inputType="phone" />
+            android:hint="*Enter phone"
+            android:inputType="phone"
+            android:textColorHint="#FF5722" />
 
         <EditText
             android:id="@+id/editTextAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter address"
-            android:inputType="textPostalAddress" />
+            android:hint="*Enter address"
+            android:inputType="textPostalAddress"
+            android:textColorHint="#FF5722" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,6 +217,14 @@
             android:text="CLEAR"
             tools:layout_editor_absoluteX="84dp"
             tools:layout_editor_absoluteY="621dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*mandatory fields"
+            android:textColor="#FF5722"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
