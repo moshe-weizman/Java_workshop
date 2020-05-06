@@ -10,6 +10,9 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,9 +43,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-   private FirebaseManager firebaseManager=new FirebaseManager();
-   private Parcel parcel;
-   private RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
+    private FirebaseManager firebaseManager = new FirebaseManager();
+    private Parcel parcel;
+    private RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
             radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
     private Button buttonSubmitParcel, buttonClear;
     private EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
@@ -127,22 +130,33 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 
                     String key = FirebaseManager.parcelRef.push().getKey();
-                    parcel = new Parcel(editTextPhone.getText().toString(),editTextFirstName.getText().toString()
+                    parcel = new Parcel(editTextPhone.getText().toString(), editTextFirstName.getText().toString()
                             , editTextLastName.getText().toString(),
-                            editTextAddress.getText().toString(),  type, isFragile, weight, key, address);
-                    Task<Void>task =firebaseManager.addParcelToFirebase(parcel);
+                            editTextAddress.getText().toString(), type, isFragile, weight, key, address);
+                    Task<Void> task = firebaseManager.addParcelToFirebase(parcel);
                     task.addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful())
                                 Toast.makeText(MainActivity.this, "successful", Toast.LENGTH_SHORT).show();
-
                             else
-                                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "error. try again", Toast.LENGTH_SHORT).show();
                         }
 
                     });
                     buttonSubmitParcel.setEnabled(false);
+                    //firebaseManager.userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    //    @Override
+                      //  public void onDataChange(DataSnapshot dataSnapshot) {
+                     //       String status = dataSnapshot.getValue(parcel.getPhone());
+                     //   }
+
+                      //  @Override
+                     //   public void onCancelled(DatabaseError error) {
+                     //       Toast.makeText(MainActivity.this, "error. try again", Toast.LENGTH_SHORT).show();
+                     //   }
+                  //  });
                 }
             }
         });
