@@ -1,9 +1,8 @@
 package com.example.myapplication.UI;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Utils.FirebaseManager;
+import com.example.myapplication.model.FirebaseManager;
 import com.example.myapplication.model.Parcel;
-import com.example.myapplication.model.Person;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -11,8 +10,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,19 +36,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-   private TextView statusText;
    private FirebaseManager firebaseManager=new FirebaseManager();
    private Parcel parcel;
    private RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
             radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
     private Button buttonSubmitParcel, buttonClear;
     private EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
-    private CheckBox acheckBoxFrgile;
+    private CheckBox checkBoxFragile;
     private Parcel.ParcelType type;
     private Parcel.ParcelWeight weight;
     private boolean isFragile;
@@ -143,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "successful", Toast.LENGTH_SHORT).show();
 
                             else
-                                statusText.setText("error ...");
+                                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                         }
 
                     });
@@ -169,8 +164,7 @@ public class MainActivity extends AppCompatActivity {
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextLastName = findViewById(R.id.editTextLastName);
-        acheckBoxFrgile = findViewById(R.id.acheckBoxFrgile);
-        statusText= findViewById(R.id.statusText);
+        checkBoxFragile = findViewById(R.id.acheckBoxFrgile);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
     }
@@ -188,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         radioButtonUpTo1.setChecked(false);
         radioButtonUpTo5.setChecked(false);
         radioButtonUpTo20.setChecked(false);
-        acheckBoxFrgile.setChecked(false);
+        checkBoxFragile.setChecked(false);
     }
 
     @SuppressLint("MissingPermission")

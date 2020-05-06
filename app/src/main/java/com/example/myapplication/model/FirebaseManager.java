@@ -1,4 +1,4 @@
-package com.example.myapplication.Utils;
+package com.example.myapplication.model;
 
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,22 +18,7 @@ import java.util.ArrayDeque;
 
 public class FirebaseManager {
 
-    public interface Action<T> {
-        void onSuccess(T obj);
-
-        void onFailure(Exception exception);
-
-        void onProgress(String status, double percent);
-    }
-
-    public interface NotifyDataChange<T> {
-        void OnDataChanged(T obj);
-
-        void onFailure(Exception exception);
-    }
-
     public static DatabaseReference parcelRef;
-
 
     static {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
