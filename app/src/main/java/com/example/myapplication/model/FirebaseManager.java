@@ -11,8 +11,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Class to manage the adding and retrieving of data to the database
+ */
 public class FirebaseManager {
 
+    /**
+     * Static reference to the parcels database
+     */
     public static DatabaseReference parcelRef;
 
     static {
@@ -20,6 +26,11 @@ public class FirebaseManager {
         parcelRef = database.getReference("Parcels");
     }
 
+    /**
+     * Add the parcel to database
+     * @param parcel the parcel to add
+     * @return a task that adds the parcel to the database
+     */
     public static Task<Void> addParcelToFirebase(final Parcel parcel) {
         return parcelRef.child(parcel.getParcelID()).setValue(parcel);
     }
