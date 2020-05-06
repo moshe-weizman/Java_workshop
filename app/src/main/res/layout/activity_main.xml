@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/textView4"
@@ -64,13 +65,13 @@
         </LinearLayout>
 
 
-            <EditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter email"
-                android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter email"
+            android:inputType="textEmailAddress" />
 
 
         <TextView
@@ -120,7 +121,6 @@
             android:text="Weight parcel:"
             android:textColor="#3F51B5"
             android:textSize="18sp" />
-
 
 
         <LinearLayout
@@ -174,7 +174,7 @@
                     android:textSize="18sp" />
             </RadioGroup>
 
-            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView7"
