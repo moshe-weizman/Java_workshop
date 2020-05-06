@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     Parcel parcel;
-    Person person;
+   // Person person;
     RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
             radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
     Button buttonSubmitParcel, buttonClear;
@@ -133,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
                     DatabaseReference myRef = database.getReference("Parcels");
                     String key = myRef.push().getKey();
-                    person = new Person(editTextFirstName.getText().toString(),
-                            editTextLastName.getText().toString(), editTextAddress.getText().toString(),
-                            editTextPhone.getText().toString(), editTextEmail.getText().toString());
-                    parcel = new Parcel(type, isFragile, weight, person, key, address);
-                    myRef.child(key).push().setValue(parcel);
+                    //person = new Person( editTextEmail.getText().toString());
+                    parcel = new Parcel(editTextPhone.getText().toString(),editTextFirstName.getText().toString()
+                            , editTextLastName.getText().toString(),
+                            editTextAddress.getText().toString(),  type, isFragile, weight, key, address);
+                    myRef.child(key).setValue(parcel);
                 }
                 //buttonSubmitParcel.setEnabled(false);
 

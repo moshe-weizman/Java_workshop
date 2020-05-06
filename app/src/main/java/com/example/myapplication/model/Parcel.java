@@ -4,6 +4,7 @@ public class Parcel {
     public enum ParcelType {
         ENVELOPE, SMALL_PARCEL, BIG_PARCEL
     }
+
     public enum ParcelWeight {
         UP_TO_500G, UP_TO_1KG, UP_TO_5KG, UP_TO_20KG
     }
@@ -12,23 +13,54 @@ public class Parcel {
     private boolean _fragile;
     private ParcelWeight _weight;
     private String _phone;
-    private Person _person;
     private String _parcelID;
     private String _locationOfStorage;
+    private String _firstName;
+    private String _lastName;
+    private String _recipientAddress;
 
     //-------------------------------------------------------
-    public Parcel() {}
+    public Parcel() {
+    }
 
-    public Parcel(ParcelType type, boolean fragile, ParcelWeight weight, Person person, String parcelID, String locationOfStorage) {
+    public Parcel(String phone, String firstName, String lastName, String recipientAddress,
+                  ParcelType type, boolean fragile, ParcelWeight weight, String parcelID,
+                  String locationOfStorage) {
         _type = type;
         _fragile = fragile;
         _weight = weight;
-        _phone = person.get_phone();
-        _person = person;
+        _phone = phone;
         _parcelID = parcelID;
         _locationOfStorage = locationOfStorage;
+        this._firstName = firstName;
+        this._lastName = lastName;
+        this._recipientAddress = recipientAddress;
     }
 //-------------------------------------------------------------------
+
+    public String get_firstName() {
+        return _firstName;
+    }
+
+    public void set_firstName(String _firstName) {
+        this._firstName = _firstName;
+    }
+
+    public String get_lastName() {
+        return _lastName;
+    }
+
+    public void set_lastName(String _lastName) {
+        this._lastName = _lastName;
+    }
+
+    public String get_recipientAddress() {
+        return _recipientAddress;
+    }
+
+    public void set_recipientAddress(String _recipientAddress) {
+        this._recipientAddress = _recipientAddress;
+    }
 
 
     public ParcelType getType() {
@@ -45,10 +77,6 @@ public class Parcel {
 
     public String getPhone() {
         return _phone;
-    }
-
-    public Person getPerson() {
-        return _person;
     }
 
     public String getParcelID() {
@@ -74,11 +102,6 @@ public class Parcel {
 
     public void setPhone(String phone) {
         _phone = phone;
-    }
-
-    public void setPerson(Person person) {
-        _person = person;
-        _phone = person.get_phone();
     }
 
     public void setLocationOfStorage(String locationOfStorage) {
