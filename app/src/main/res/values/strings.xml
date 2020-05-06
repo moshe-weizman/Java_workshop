@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="fillDetails">Fill personal details below:</string>
+    <string name="enterPhone">*Enter phone</string>
+    <string name="enterAddress">*Enter address</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="enterEmail">Enter email</string>
+    <string name="parcelType">Parcel type:</string>
+    <string name="envelope">envelope</string>
+    <string name="smallParcel">small parcel</string>
+    <string name="bigParcel">big parcel</string>
+    <string name="weightParcel">Weight parcel:</string>
+    <string name="upTo500g">up to 500g</string>
+    <string name="upTo1kg">up to 1kg</string>
+    <string name="upTo5kg">up to 5kg</string>
+    <string name="upTo20kg">up to 20kg</string>
+    <string name="fragile">Fragile?</string>
+    <string name="checkBoxYes">Yes</string>
+    <string name="addParcel">Add Parcel</string>
+    <string name="clearButton">CLEAR</string>
+    <string name="mandatoryFields">*mandatory fields</string>
 </resources>
