@@ -1,5 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.UI;
 
+import com.example.myapplication.R;
 import com.example.myapplication.model.Parcel;
 import com.example.myapplication.model.Person;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -28,6 +29,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -43,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     Parcel parcel;
     Person person;
-    RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500, radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
+    RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
+            radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
     Button buttonSubmitParcel, buttonClear;
     EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
     CheckBox acheckBoxFrgile;
@@ -110,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         init();
 
 
-
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,16 +125,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (TextUtils.isEmpty(editTextPhone.getText()) || TextUtils.isEmpty(editTextAddress.getText())) {
+                    Toast.makeText(MainActivity.this, "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
 
-                // parcel.set_person(person);
-
-                DatabaseReference myRef = database.getReference("Parcels");
-                String key = myRef.push().getKey();
-                person = new Person(editTextFirstName.getText().toString(), editTextLastName.getText().toString(), editTextAddress.getText().toString(), editTextPhone.getText().toString(), editTextEmail.getText().toString());
-                parcel = new Parcel(type, isFragile, weight, person, key, address);
-                myRef.child(key).push().setValue(parcel);
-
-                buttonSubmitParcel.setEnabled(false);
+                    DatabaseReference myRef = database.getReference("Parcels");
+                    String key = myRef.push().getKey();
+                    person = new Person(editTextFirstName.getText().toString(),
+                            editTextLastName.getText().toString(), editTextAddress.getText().toString(),
+                            editTextPhone.getText().toString(), editTextEmail.getText().toString());
+                    parcel = new Parcel(type, isFragile, weight, person, key, address);
+                    myRef.child(key).push().setValue(parcel);
+                }
+                //buttonSubmitParcel.setEnabled(false);
 
             }
         });
