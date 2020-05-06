@@ -12,117 +12,127 @@ package com.example.myapplication.model;
  */
 public class Parcel {
 
-    /**
-     * Optional types of parcel sent by the network
-     */
-    public enum ParcelType {
-        ENVELOPE, SMALL_PARCEL, BIG_PARCEL
-    }
+   /**
+    * Optional types of parcel sent by the network
+    */
+   public enum ParcelType {
+      ENVELOPE, SMALL_PARCEL, BIG_PARCEL
+   }
 
-    /**
-     * Optional weight of the package
-     */
-    public enum ParcelWeight {
-        UP_TO_500G, UP_TO_1KG, UP_TO_5KG, UP_TO_20KG
-    }
+   /**
+    * Optional weight of the package
+    */
+   public enum ParcelWeight {
+      UP_TO_500G, UP_TO_1KG, UP_TO_5KG, UP_TO_20KG
+   }
 
-    private ParcelType _type;
-    private boolean _fragile;
-    private ParcelWeight _weight;
+   private ParcelType _type;
+   private boolean _fragile;
+   private ParcelWeight _weight;
+   private String _locationOfStorage;
+   private String _parcelID;
 
-    private String _recipientPhone;
-    private String _recipientFirstName;
-    private String _recipientLastName;
-    private String _recipientAddress;
-    private String _locationOfStorage;
-    private String _parcelID;
+   private String _recipientPhone;
+   private String _recipientFirstName;
+   private String _recipientLastName;
+   private String _recipientAddress;
 
-    //-------------------------------------------------------
-    public Parcel() {
-    }
+   //---------------------------------------Constructors------------------------------------------
+   public Parcel() {
+   }
 
-    public Parcel(String recipientPhone, String recipientFirstName, String recipientLastName, String recipientAddress,
-                  ParcelType type, boolean fragile, ParcelWeight weight, String parcelID,
-                  String locationOfStorage) {
-        _type = type;
-        _fragile = fragile;
-        _weight = weight;
-        _recipientPhone = recipientPhone;
-        _parcelID = parcelID;
-        _locationOfStorage = locationOfStorage;
-        _recipientFirstName = recipientFirstName;
-        _recipientLastName = recipientLastName;
-        _recipientAddress = recipientAddress;
-    }
-//-------------------------------------------------------------------
+   /**
+    * @param recipientPhone     recipient's phone
+    * @param recipientFirstName recipient's first name
+    * @param recipientLastName  recipient's last name
+    * @param recipientAddress   recipient's address
+    * @param type               parcel type
+    * @param fragile            is the parcel fragile
+    * @param weight             maximum weight
+    * @param parcelID           the serial number of the parcel on the database
+    * @param locationOfStorage  the location the parcel is stored
+    */
+   public Parcel(String recipientPhone, String recipientFirstName, String recipientLastName, String recipientAddress,
+                 ParcelType type, boolean fragile, ParcelWeight weight, String parcelID,
+                 String locationOfStorage) {
+      _type = type;
+      _fragile = fragile;
+      _weight = weight;
+      _recipientPhone = recipientPhone;
+      _parcelID = parcelID;
+      _locationOfStorage = locationOfStorage;
+      _recipientFirstName = recipientFirstName;
+      _recipientLastName = recipientLastName;
+      _recipientAddress = recipientAddress;
+   }
+//------------------------------Getters------------------------------------------
 
-    public String getRecipientFirstName() {
-        return _recipientFirstName;
-    }
+   public String getRecipientFirstName() {
+      return _recipientFirstName;
+   }
 
-    public void setRecipientFirstName(String recipientFirstName) {
-        _recipientFirstName = recipientFirstName;
-    }
+   public String getRecipientLastName() {
+      return _recipientLastName;
+   }
 
-    public String getRecipientLastName() {
-        return _recipientLastName;
-    }
+   public String getRecipientAddress() {
+      return _recipientAddress;
+   }
 
-    public void setRecipientLastName(String recipientLastName) {
-        _recipientLastName = recipientLastName;
-    }
+   public ParcelType getType() {
+      return _type;
+   }
 
-    public String getRecipientAddress() {
-        return _recipientAddress;
-    }
+   public boolean isFragile() {
+      return _fragile;
+   }
 
-    public void setRecipientAddress(String recipientAddress) {
-        _recipientAddress = recipientAddress;
-    }
+   public ParcelWeight getWeight() {
+      return _weight;
+   }
 
+   public String getRecipientPhone() {
+      return _recipientPhone;
+   }
 
-    public ParcelType getType() {
-        return _type;
-    }
+   public String getParcelID() {
+      return _parcelID;
+   }
 
-    public boolean isFragile() {
-        return _fragile;
-    }
+   public String getLocationOfStorage() {
+      return _locationOfStorage;
+   }
+//-------------------------------Setters--------------------------------------
 
-    public ParcelWeight getWeight() {
-        return _weight;
-    }
+   public void setRecipientAddress(String recipientAddress) {
+      _recipientAddress = recipientAddress;
+   }
 
-    public String getRecipientPhone() {
-        return _recipientPhone;
-    }
+   public void setRecipientFirstName(String recipientFirstName) {
+      _recipientFirstName = recipientFirstName;
+   }
 
-    public String getParcelID() {
-        return _parcelID;
-    }
+   public void setRecipientLastName(String recipientLastName) {
+      _recipientLastName = recipientLastName;
+   }
 
-    public String getLocationOfStorage() {
-        return _locationOfStorage;
-    }
-//---------------------------------------------------------------------
+   public void setType(ParcelType type) {
+      _type = type;
+   }
 
-    public void setType(ParcelType type) {
-        _type = type;
-    }
+   public void setFragile(boolean fragile) {
+      _fragile = fragile;
+   }
 
-    public void setFragile(boolean fragile) {
-        _fragile = fragile;
-    }
+   public void setWeight(ParcelWeight weight) {
+      _weight = weight;
+   }
 
-    public void setWeight(ParcelWeight weight) {
-        _weight = weight;
-    }
+   public void setRecipientPhone(String recipientPhone) {
+      _recipientPhone = recipientPhone;
+   }
 
-    public void setRecipientPhone(String recipientPhone) {
-        _recipientPhone = recipientPhone;
-    }
-
-    public void setLocationOfStorage(String locationOfStorage) {
-        _locationOfStorage = locationOfStorage;
-    }
+   public void setLocationOfStorage(String locationOfStorage) {
+      _locationOfStorage = locationOfStorage;
+   }
 }

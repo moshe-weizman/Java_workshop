@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
     private int PERMISSION_ID = 44;
     private FusedLocationProviderClient mFusedLocationClient;
 
+    /**
+     * The radio button of the parcel type was chosen
+     */
     public void onRadioButtonClickedType(View view) {
         // Check which radio button was clicked
         switch (view.getId()) {
@@ -74,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * The radio button of the parcel weight was chosen
+     */
     public void onRadioButtonClickedWeight(View view) {
         // Check which radio button was clicked
         switch (view.getId()) {
@@ -92,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * The fragility checkbox was pressed
+     */
     public void onCheckboxClicked(View view) {
         isFragile = ((CheckBox) view).isChecked();
     }
@@ -100,12 +109,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Initializing all variables of the activity
         init();
-
 
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //function to clear all variables
                 clear();
                 buttonSubmitParcel.setEnabled(true);
             }
@@ -114,16 +124,19 @@ public class MainActivity extends AppCompatActivity {
         buttonSubmitParcel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //check if mandatory fields were filled
                 if (TextUtils.isEmpty(editTextPhone.getText()) || TextUtils.isEmpty(editTextAddress.getText())) {
+                    ///show message of error to the user
                     Toast.makeText(MainActivity.this, "Please fill in the required fields", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    //generate a new member in the parcels database
                     String key = FirebaseManager.parcelRef.push().getKey();
+                    //making a new parcel with the input data and the database key
                     parcel = new Parcel(editTextPhone.getText().toString(), editTextFirstName.getText().toString()
                             , editTextLastName.getText().toString(),
                             editTextAddress.getText().toString(), type, isFragile, weight, key, address);
                     Task<Void> task = FirebaseManager.addParcelToFirebase(parcel);
+                    //when the adding task is completed show the user a matching message
                     task.addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -134,13 +147,16 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     });
+                    //disable the add button to prevent duplication of data
                     buttonSubmitParcel.setEnabled(false);
                 }
             }
         });
-
     }
 
+    /**
+     * Initialize all the variables of the activity
+     */
     private void init() {
         radioButtonSmallParcel = findViewById(R.id.radioButtonSmallParcel);
         radioButtonBigParcel = findViewById(R.id.radioButtonBigParcel);
@@ -160,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
         getLastLocation();
     }
 
+    /**
+     * Clear all the variables of the activity to default
+     */
     private void clear() {
         editTextFirstName.setText("");
         editTextLastName.setText("");
