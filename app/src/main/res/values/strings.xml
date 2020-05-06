@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Social Mail</string>
     <string name="fillDetails">Fill personal details below:</string>
     <string name="enterPhone">*Enter phone</string>
     <string name="enterAddress">*Enter address</string>
