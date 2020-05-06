@@ -1,10 +1,27 @@
+/*
+Java Workshop 2020
+First Application
+06/05/2020
+Moshe Weizman 305343931
+Aharon Packter 201530508
+ */
 package com.example.myapplication.model;
 
+/**
+ * represents a package sent to a receiver including relevant information
+ */
 public class Parcel {
+
+    /**
+     * Optional types of parcel sent by the network
+     */
     public enum ParcelType {
         ENVELOPE, SMALL_PARCEL, BIG_PARCEL
     }
 
+    /**
+     * Optional weight of the package
+     */
     public enum ParcelWeight {
         UP_TO_500G, UP_TO_1KG, UP_TO_5KG, UP_TO_20KG
     }
@@ -12,54 +29,55 @@ public class Parcel {
     private ParcelType _type;
     private boolean _fragile;
     private ParcelWeight _weight;
-    private String _phone;
-    private String _parcelID;
-    private String _locationOfStorage;
-    private String _firstName;
-    private String _lastName;
+
+    private String _recipientPhone;
+    private String _recipientFirstName;
+    private String _recipientLastName;
     private String _recipientAddress;
+    private String _locationOfStorage;
+    private String _parcelID;
 
     //-------------------------------------------------------
     public Parcel() {
     }
 
-    public Parcel(String phone, String firstName, String lastName, String recipientAddress,
+    public Parcel(String recipientPhone, String recipientFirstName, String recipientLastName, String recipientAddress,
                   ParcelType type, boolean fragile, ParcelWeight weight, String parcelID,
                   String locationOfStorage) {
         _type = type;
         _fragile = fragile;
         _weight = weight;
-        _phone = phone;
+        _recipientPhone = recipientPhone;
         _parcelID = parcelID;
         _locationOfStorage = locationOfStorage;
-        this._firstName = firstName;
-        this._lastName = lastName;
-        this._recipientAddress = recipientAddress;
+        _recipientFirstName = recipientFirstName;
+        _recipientLastName = recipientLastName;
+        _recipientAddress = recipientAddress;
     }
 //-------------------------------------------------------------------
 
-    public String get_firstName() {
-        return _firstName;
+    public String getRecipientFirstName() {
+        return _recipientFirstName;
     }
 
-    public void set_firstName(String _firstName) {
-        this._firstName = _firstName;
+    public void setRecipientFirstName(String recipientFirstName) {
+        _recipientFirstName = recipientFirstName;
     }
 
-    public String get_lastName() {
-        return _lastName;
+    public String getRecipientLastName() {
+        return _recipientLastName;
     }
 
-    public void set_lastName(String _lastName) {
-        this._lastName = _lastName;
+    public void setRecipientLastName(String recipientLastName) {
+        _recipientLastName = recipientLastName;
     }
 
-    public String get_recipientAddress() {
+    public String getRecipientAddress() {
         return _recipientAddress;
     }
 
-    public void set_recipientAddress(String _recipientAddress) {
-        this._recipientAddress = _recipientAddress;
+    public void setRecipientAddress(String recipientAddress) {
+        _recipientAddress = recipientAddress;
     }
 
 
@@ -75,8 +93,8 @@ public class Parcel {
         return _weight;
     }
 
-    public String getPhone() {
-        return _phone;
+    public String getRecipientPhone() {
+        return _recipientPhone;
     }
 
     public String getParcelID() {
@@ -100,8 +118,8 @@ public class Parcel {
         _weight = weight;
     }
 
-    public void setPhone(String phone) {
-        _phone = phone;
+    public void setRecipientPhone(String recipientPhone) {
+        _recipientPhone = recipientPhone;
     }
 
     public void setLocationOfStorage(String locationOfStorage) {

@@ -1,3 +1,10 @@
+/*
+Java Workshop 2020
+First Application
+06/05/2020
+Moshe Weizman 305343931
+Aharon Packter 201530508
+ */
 package com.example.myapplication.model;
 
 public class Person {

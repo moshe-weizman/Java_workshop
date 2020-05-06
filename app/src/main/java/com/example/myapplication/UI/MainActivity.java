@@ -1,3 +1,10 @@
+/*
+Java Workshop 2020
+First Application
+06/05/2020
+Moshe Weizman 305343931
+Aharon Packter 201530508
+ */
 package com.example.myapplication.UI;
 
 import com.example.myapplication.R;
@@ -10,9 +17,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,68 +40,54 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseManager firebaseManager = new FirebaseManager();
     private Parcel parcel;
     private RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
             radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
     private Button buttonSubmitParcel, buttonClear;
-    private EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
+    private EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName;
     private CheckBox checkBoxFragile;
     private Parcel.ParcelType type;
     private Parcel.ParcelWeight weight;
     private boolean isFragile;
     private String address;
     private int PERMISSION_ID = 44;
-    FusedLocationProviderClient mFusedLocationClient;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     public void onRadioButtonClickedType(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.radioButtonEnvelop:
-                if (checked)
-                    type = type.ENVELOPE;
+                type = Parcel.ParcelType.ENVELOPE;
                 break;
             case R.id.radioButtonSmallParcel:
-                if (checked)
-                    type = type.SMALL_PARCEL;
+                type = Parcel.ParcelType.SMALL_PARCEL;
                 break;
             case R.id.radioButtonBigParcel:
-                if (checked)
-                    type = type.BIG_PARCEL;
+                type = Parcel.ParcelType.BIG_PARCEL;
                 break;
-
         }
     }
 
     public void onRadioButtonClickedWeight(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.radioButtonUpTo500:
-                if (checked)
-                    weight = weight.UP_TO_500G;
+                weight = Parcel.ParcelWeight.UP_TO_500G;
                 break;
             case R.id.radioButtonUpTo1:
-                if (checked)
-                    weight = weight.UP_TO_1KG;
+                weight = Parcel.ParcelWeight.UP_TO_1KG;
                 break;
             case R.id.radioButtonUpTo5:
-                if (checked)
-                    weight = weight.UP_TO_5KG;
+                weight = Parcel.ParcelWeight.UP_TO_5KG;
                 break;
             case R.id.radioButtonUpTo20:
-                if (checked)
-                    weight = weight.UP_TO_20KG;
+                weight = Parcel.ParcelWeight.UP_TO_20KG;
                 break;
         }
     }
@@ -133,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     parcel = new Parcel(editTextPhone.getText().toString(), editTextFirstName.getText().toString()
                             , editTextLastName.getText().toString(),
                             editTextAddress.getText().toString(), type, isFragile, weight, key, address);
-                    Task<Void> task = firebaseManager.addParcelToFirebase(parcel);
+                    Task<Void> task = FirebaseManager.addParcelToFirebase(parcel);
                     task.addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -145,18 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
                     });
                     buttonSubmitParcel.setEnabled(false);
-                    //firebaseManager.userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                    //    @Override
-                      //  public void onDataChange(DataSnapshot dataSnapshot) {
-                     //       String status = dataSnapshot.getValue(parcel.getPhone());
-                     //   }
-
-                      //  @Override
-                     //   public void onCancelled(DatabaseError error) {
-                     //       Toast.makeText(MainActivity.this, "error. try again", Toast.LENGTH_SHORT).show();
-                     //   }
-                  //  });
                 }
             }
         });
@@ -176,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextAddress = findViewById(R.id.editTextAddress);
         editTextFirstName = findViewById(R.id.editTextFirstName);
-        editTextEmail = findViewById(R.id.editTextEmail);
         editTextLastName = findViewById(R.id.editTextLastName);
         checkBoxFragile = findViewById(R.id.acheckBoxFrgile);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -188,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
         editTextLastName.setText("");
         editTextPhone.setText("");
         editTextAddress.setText("");
-        editTextEmail.setText("");
         radioButtonEnvelop.setChecked(false);
         radioButtonSmallParcel.setChecked(false);
         radioButtonBigParcel.setChecked(false);
@@ -227,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @SuppressLint("MissingPermission")
     private void requestNewLocationData() {
 
@@ -242,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                 mLocationRequest, mLocationCallback,
                 Looper.myLooper()
         );
-
     }
 
     private LocationCallback mLocationCallback = new LocationCallback() {
@@ -251,16 +225,12 @@ public class MainActivity extends AppCompatActivity {
             Location mLastLocation = locationResult.getLastLocation();
             Toast.makeText(MainActivity.this, "lat and long found", Toast.LENGTH_SHORT).show();
             getAddressString(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-
         }
     };
 
     private boolean checkPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+              ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermissions() {
@@ -279,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -294,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
         if (checkPermissions()) {
             getLastLocation();
         }
-
     }
 
     private void getAddressString(double lat, double lng) {
@@ -309,10 +278,5 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-        String city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
-        String postalCode = addresses.get(0).getPostalCode();
-        String knownName = addresses.get(0).getFeatureName();
     }
 }
