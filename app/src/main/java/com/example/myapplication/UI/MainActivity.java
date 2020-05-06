@@ -1,6 +1,7 @@
 package com.example.myapplication.UI;
 
 import com.example.myapplication.R;
+import com.example.myapplication.Utils.FirebaseManager;
 import com.example.myapplication.model.Parcel;
 import com.example.myapplication.model.Person;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,26 +36,27 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    Parcel parcel;
-   // Person person;
-    RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
+   private TextView statusText;
+   private FirebaseManager firebaseManager=new FirebaseManager();
+   private Parcel parcel;
+   private RadioButton radioButtonEnvelop, radioButtonSmallParcel, radioButtonBigParcel, radioButtonUpTo500,
             radioButtonUpTo1, radioButtonUpTo5, radioButtonUpTo20;
-    Button buttonSubmitParcel, buttonClear;
-    EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
-    CheckBox acheckBoxFrgile;
-    Parcel.ParcelType type;
-    Parcel.ParcelWeight weight;
-    boolean isFragile;
-    String address;
-    int PERMISSION_ID = 44;
+    private Button buttonSubmitParcel, buttonClear;
+    private EditText editTextPhone, editTextAddress, editTextFirstName, editTextLastName, editTextEmail;
+    private CheckBox acheckBoxFrgile;
+    private Parcel.ParcelType type;
+    private Parcel.ParcelWeight weight;
+    private boolean isFragile;
+    private String address;
+    private int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
 
     public void onRadioButtonClickedType(View view) {
@@ -128,19 +130,25 @@ public class MainActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(editTextPhone.getText()) || TextUtils.isEmpty(editTextAddress.getText())) {
                     Toast.makeText(MainActivity.this, "Please fill in the required fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(i);
 
-                    DatabaseReference myRef = database.getReference("Parcels");
-                    String key = myRef.push().getKey();
-                    //person = new Person( editTextEmail.getText().toString());
+                    String key = FirebaseManager.parcelRef.push().getKey();
                     parcel = new Parcel(editTextPhone.getText().toString(),editTextFirstName.getText().toString()
                             , editTextLastName.getText().toString(),
                             editTextAddress.getText().toString(),  type, isFragile, weight, key, address);
-                    myRef.child(key).setValue(parcel);
-                }
-                //buttonSubmitParcel.setEnabled(false);
+                    Task<Void>task =firebaseManager.addParcelToFirebase(parcel);
+                    task.addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful())
+                                Toast.makeText(MainActivity.this, "successful", Toast.LENGTH_SHORT).show();
 
+                            else
+                                statusText.setText("error ...");
+                        }
+
+                    });
+                    buttonSubmitParcel.setEnabled(false);
+                }
             }
         });
 
@@ -162,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextLastName = findViewById(R.id.editTextLastName);
         acheckBoxFrgile = findViewById(R.id.acheckBoxFrgile);
+        statusText= findViewById(R.id.statusText);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
     }
