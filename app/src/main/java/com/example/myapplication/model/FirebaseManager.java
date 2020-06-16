@@ -23,16 +23,18 @@ public class FirebaseManager {
 
     static {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        parcelRef = database.getReference("Parcels");
+        parcelRef = database.getReference("PendingParcels");
     }
 
     /**
      * Add the parcel to database
+     *
      * @param parcel the parcel to add
      * @return a task that adds the parcel to the database
      */
     public static Task<Void> addParcelToFirebase(final Parcel parcel) {
-        return parcelRef.child(parcel.getParcelID()).setValue(parcel);
+
+        return parcelRef.child(parcel.getRecipientPhone() + "/" + parcel.getParcelID()).setValue(parcel);
     }
 
 
