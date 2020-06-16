@@ -23,7 +23,7 @@ public class FirebaseManager {
 
     static {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        parcelRef = database.getReference("PendingParcels");
+        parcelRef = database.getReference("PendingParcel");
     }
 
     /**
