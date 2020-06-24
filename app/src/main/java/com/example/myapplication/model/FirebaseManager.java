@@ -34,7 +34,7 @@ public class FirebaseManager {
      */
     public static Task<Void> addParcelToFirebase(final Parcel parcel) {
 
-        return parcelRef.child(parcel.getRecipientPhone() + "/" + parcel.getParcelID()).setValue(parcel);
+        return parcelRef.child(parcel.getRecipientPhone() + "/" + parcel.getParcelID()+"/parcelDetails").setValue(parcel);
     }
 
 
